@@ -647,23 +647,33 @@ function EditClass() {
             required
             onChange={(e) => {
               let previousImg = props.value;
-              let error = [];
-
               if (e.target.files[0].size > 1000000) {
-                error.push("Class photo should be less than 1MB.");
+                alert("File size should not exceed 1MB");
+                e.target.value = "";
+                return;
               }
-              if (CheckDimension(e.target.files[0])) {
-                error.push("There seems an error in photo upload.");
+              // check whether selected file is image or not
+              if (e.target.files[0].type.split("/")[0] != "image") {
+                alert("Only image files are allowed");
+                e.target.value = "";
+                return;
               }
-              if (error.length < 1) {
-                props.onChange(e.target.files[0]);
-              } else {
-                {
-                  error.map((e) => {
-                    alert(e);
-                    props.onChange(previousImg);
-                  });
+              // check the height and width ratio of the image
+              let isReturn = false;
+              const img = new Image();
+              img.src = URL.createObjectURL(e.target.files[0]);
+              img.onload = function () {
+                const height = this.height;
+                const width = this.width;
+                if (height > width) {
+                  alert("Please upload a widescreen image. Eg: 16:9 ratio");
+                  e.target.value = "";
+                  isReturn = true;
+                  return;
                 }
+              };
+              if (isReturn) {
+                return;
               }
             }}
           />
@@ -1531,25 +1541,33 @@ function EditClass() {
             accept="image/*"
             required
             onChange={(e) => {
-              let previousImg = props.value;
-
-              let error = [];
-
               if (e.target.files[0].size > 1000000) {
-                error.push("Class photo should be less than 1MB.");
+                alert("File size should not exceed 1MB");
+                e.target.value = "";
+                return;
               }
-              if (CheckDimension(e.target.files[0])) {
-                error.push("There seems an error in photo upload.");
+              // check whether selected file is image or not
+              if (e.target.files[0].type.split("/")[0] != "image") {
+                alert("Only image files are allowed");
+                e.target.value = "";
+                return;
               }
-              if (error.length < 1) {
-                props.onChange(e.target.files[0]);
-              } else {
-                {
-                  error.map((e) => {
-                    alert(e);
-                    props.onChange(previousImg);
-                  });
+              // check the height and width ratio of the image
+              let isReturn = false;
+              const img = new Image();
+              img.src = URL.createObjectURL(e.target.files[0]);
+              img.onload = function () {
+                const height = this.height;
+                const width = this.width;
+                if (height > width) {
+                  alert("Please upload a widescreen image. Eg: 16:9 ratio");
+                  e.target.value = "";
+                  isReturn = true;
+                  return;
                 }
+              };
+              if (isReturn) {
+                return;
               }
             }}
           />
