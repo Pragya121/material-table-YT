@@ -1165,6 +1165,7 @@ function ApproveClass() {
           body: JSON.stringify({
             title: newData.title,
             id: newData.id,
+            startDate: newData.scheduledDates[0],
             displayImage: newData.displayImage,
             duration: Number(newData.duration),
             mode: newData.mode,

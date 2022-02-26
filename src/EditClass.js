@@ -1728,6 +1728,7 @@ function EditClass() {
             id: newData.id,
             displayImage: newData.displayImage,
             duration: Number(newData.duration),
+            startDate: newData.scheduledDates[0],
             mode: newData.mode,
             totalClasses: newData.totalClasses,
             type: newData.type,
